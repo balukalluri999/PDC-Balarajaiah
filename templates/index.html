@@ -111,6 +111,36 @@
       color: #ffecb3;
       font-weight: 500;
     }
+
+    /* Additional styles for image upload and thumbnails */
+    input[type="file"] {
+      margin-top: 10px;
+      border-radius: 5px;
+      border: none;
+      padding: 6px;
+      width: 100%;
+      font-size: 1rem;
+      color: #333;
+    }
+    .thumbnails {
+      margin-top: 20px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .thumbnails img {
+      height: 80px;
+      border-radius: 10px;
+      border: 2px solid #ffd54f;
+      box-shadow: 0 0 8px #ffd54f;
+    }
+    .generated-thumbnail {
+      margin-top: 25px;
+      border-radius: 12px;
+      width: 100%;
+      box-shadow: 0 0 18px #ffc107aa;
+    }
   </style>
 </head>
 <body>
@@ -124,6 +154,38 @@
       <p>Hello <strong>{{ user.name }}</strong></p>
       <p>You are signed in with <em>{{ user.email }}</em></p>
       <p class="time">Current Indian Time: {{ indian_time }}</p>
+
+      <!-- Upload form -->
+      <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
+        <label for="images">Upload up to 5 images:</label><br>
+        <input type="file" id="images" name="images" accept=".jpg,.jpeg,.png,.gif" multiple required><br><br>
+        <button type="submit">SUBMIT</button>
+      </form>
+
+      <!-- Display thumbnails -->
+      {% if thumbnails %}
+      <div class="thumbnails">
+        {% for thumb in thumbnails %}
+          <img src="{{ thumb }}" alt="Thumbnail"/>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <!-- Generate thumbnail button -->
+      {% if thumbnails %}
+      <form method="POST" action="{{ url_for('generate_thumbnail') }}">
+        <button type="submit" style="margin-top: 20px;">
+          Generate News Thumbnail
+        </button>
+      </form>
+      {% endif %}
+
+      <!-- Display generated news thumbnail -->
+      {% if generated_thumbnail %}
+      <h3>Generated News Thumbnail:</h3>
+      <img src="{{ generated_thumbnail }}" alt="News Thumbnail" class="generated-thumbnail" />
+      {% endif %}
+
       <a href="{{ url_for('logout') }}" class="logout-link">Sign out</a>
     {% else %}
       <a href="{{ url_for('login') }}"><button>Sign in with Google</button></a>
