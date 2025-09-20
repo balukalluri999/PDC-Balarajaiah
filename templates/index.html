@@ -1,13 +1,133 @@
 <!doctype html>
 <html>
-  <body>
+<head>
+  <title>Formulaq Solutions - Login</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #ff6a00, #ee0979, #29abe2, #ffe000);
+      background-size: 800% 800%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+      animation: GradientShift 15s ease infinite;
+    }
+
+    @keyframes GradientShift {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.45);
+      border-radius: 16px;
+      padding: 40px 50px;
+      max-width: 400px;
+      width: 90%;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+    }
+    h1 {
+      font-weight: 800;
+      font-size: 2.75rem;
+      margin-bottom: 15px;
+      background: linear-gradient(45deg, #ff3a3a, #ffbd3a, #62ff3a, #3affc6, #3e8aff);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      animation: TextHue 10s infinite linear;
+    }
+    @keyframes TextHue {
+      0% {
+        filter: hue-rotate(0deg);
+      }
+      100% {
+        filter: hue-rotate(360deg);
+      }
+    }
+    p.subtitle {
+      font-weight: 400;
+      font-size: 1.3rem;
+      color: #ddd;
+      margin: 0 0 30px 0;
+    }
+    button {
+      background: linear-gradient(45deg, #ff4e50, #f9d423);
+      border: none;
+      padding: 16px 0;
+      width: 100%;
+      border-radius: 30px;
+      font-size: 1.3rem;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 15px rgba(249, 212, 35, 0.4);
+      transition: box-shadow 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    button:hover {
+      box-shadow: 0 12px 20px rgba(249, 212, 35, 0.7);
+      background: linear-gradient(45deg, #f9d423, #ff4e50);
+    }
+    img.profile {
+      border-radius: 50%;
+      margin-bottom: 25px;
+      width: 90px;
+      height: 90px;
+      border: 3px solid #fff;
+      box-shadow: 0 0 15px #fff;
+    }
+    a.logout-link {
+      display: block;
+      margin-top: 25px;
+      color: #ffd54f;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.05em;
+      transition: color 0.3s ease;
+    }
+    a.logout-link:hover {
+      color: #fff;
+    }
+    p, .time {
+      font-size: 1.05rem;
+      margin: 6px 0;
+    }
+    .time {
+      color: #ffecb3;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome to Formulaq Solutions</h1>
+    <p class="subtitle">Smart automation & cloud solutions</p>
     {% if user %}
-      <p>Hello {{ user['name'] }}</p>
-      <a href="{{ url_for('logout') }}">[Sign out]</a>
-      <p>You are signed in with the email {{ user['email'] }}</p>
-      <p>Current Indian Time: {{ indian_time }}</p>
+      {% if user.picture %}
+        <img src="{{ user.picture }}" alt="Profile Picture" class="profile" />
+      {% endif %}
+      <p>Hello <strong>{{ user.name }}</strong></p>
+      <p>You are signed in with <em>{{ user.email }}</em></p>
+      <p class="time">Current Indian Time: {{ indian_time }}</p>
+      <a href="{{ url_for('logout') }}" class="logout-link">Sign out</a>
     {% else %}
       <a href="{{ url_for('login') }}"><button>Sign in with Google</button></a>
     {% endif %}
-  </body>
+  </div>
+</body>
 </html>
