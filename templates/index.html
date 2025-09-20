@@ -1,0 +1,13 @@
+<!doctype html>
+<html>
+  <body>
+    {% if user %}
+      <p>Hello {{ user['name'] }}</p>
+      <a href="{{ url_for('logout') }}">[Sign out]</a>
+      <p>You are signed in with the email {{ user['email'] }}</p>
+      <p>Current Indian Time: {{ indian_time }}</p>
+    {% else %}
+      <a href="{{ url_for('login') }}"><button>Sign in with Google</button></a>
+    {% endif %}
+  </body>
+</html>
