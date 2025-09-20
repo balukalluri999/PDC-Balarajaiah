@@ -36,7 +36,7 @@ google = oauth.register(
 )
 
 # AI API configuration
-AI_API_ENDPOINT = os.environ.get('https://api.sambanova.ai/v1')  # Put your AI API endpoint here
+AI_API_ENDPOINT = os.environ.get('https://api.sambanova.ai/v1')  
 AI_API_KEY = os.environ.get('5a0172c2-94ea-4042-8abe-1f4f20f7a347')  
 
 def get_indian_time():
@@ -66,7 +66,6 @@ def ai_generate_prompt_from_images(image_urls):
         response = requests.post(AI_API_ENDPOINT, json=payload, headers=headers)
         response.raise_for_status()
         data = response.json()
-        # Expected field 'caption' with description text (adjust per your API)
         return data.get('caption', "Composite news thumbnail inspired by uploaded images.")
     except Exception as e:
         print(f"AI API call failed: {e}")
